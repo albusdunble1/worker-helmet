@@ -1,0 +1,7 @@
+{
+  "name": "psm-worker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

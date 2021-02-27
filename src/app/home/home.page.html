@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="middle-stats">
+    <ion-row>
+      <ion-col size="5" >
+        <ion-card>
+          <ion-card-content>
+            <ion-text color="danger" class="ion-text-center">
+              <p class="stat-number">{{ activeStrikesCount }}</p>
+              <p>{{ activeStrikesCount > 1? 'Strikes' : 'Strike' }}</p>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="7">
+        <ion-card>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6" class="streak ion-justify-content-center ion-align-items-center">
+                  <ion-text color="success" class="stat-number">
+                    {{ streakCount }}
+                  </ion-text>
+                </ion-col>
+
+                <ion-col size="6" class="streak ion-justify-content-center ion-align-items-center">
+                  <ion-text color="success">
+                    {{ streakCount > 1? 'Days ' : 'Day ' }} since last strike
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-content class="ion-no-padding">
+      <ion-list>
+        <ion-item *ngFor="let strike of workerStrikes">
+          {{ strike.date.seconds*1000 | date }} | You have received a strike!
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
