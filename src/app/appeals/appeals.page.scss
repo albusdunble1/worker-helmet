@@ -1,0 +1,32 @@
+span {
+  color: white;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.pending{
+  background-color: #0092ff;
+}
+
+.approved{
+  background-color: #41c800;
+}
+
+.rejected{
+  background-color:red;
+}
+
+
+ion-card {
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+ion-text:nth-of-type(2) h2{
+  padding: 10px 0;
+}

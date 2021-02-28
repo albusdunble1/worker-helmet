@@ -21,5 +21,9 @@ export class StrikesService {
     }));
   }
 
+  getStrike(id: string){
+    return this.db.doc('strikes/' + id).valueChanges({idField: 'id'});
+  }
+
 
 }

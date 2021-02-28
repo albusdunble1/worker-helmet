@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Appeals</ion-title>
+    <ion-title>My Appeals</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-card *ngFor="let appeal of loadedAppeals">
+      <ion-card-content>
+        <ion-text color="dark">
+          <h2><b>Appeal ID: {{ appeal.id }}</b></h2>
+          <p>{{ appeal.date.seconds*1000 | date }}</p>
+          <p *ngIf="appeal.status === 'pending'"><span class="pending">Pending</span></p>
+          <p *ngIf="appeal.status === 'approved'"><span class="approved">Approved</span></p>
+          <p *ngIf="appeal.status === 'rejected'"><span class="rejected">Rejected</span></p>
+        </ion-text>
+        <!-- <ion-img [src]='appeal.detection.frameUrl'></ion-img> -->
 
+        <ion-text color="dark">
+          <h2><b>Strike ID: {{ appeal.strike.id }}</b></h2>
+        </ion-text>
+
+        <ion-label>
+          <h3><b>Reason</b></h3>
+          <p>{{ appeal.reason }}</p>
+        </ion-label>
+        <!-- <div class="ion-text-center" *ngIf="appeal.status === 'active'">
+          <ion-button color="danger" (click)="onResolve(appeal.id)">Resolve</ion-button>
+        </div> -->
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

@@ -4,11 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
-  <ion-grid class="middle-stats">
+  <ion-grid class="middle-stats"  *ngIf="!isLoading">
     <ion-row>
-      <ion-col size="5" >
+      <ion-col size="5">
         <ion-card>
           <ion-card-content>
             <ion-text color="danger" class="ion-text-center">
@@ -43,10 +43,10 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card>
+  <ion-card *ngIf="!isLoading">
     <ion-card-content class="ion-no-padding">
       <ion-list>
-        <ion-item *ngFor="let strike of workerStrikes">
+        <ion-item routerLink="/tabs/home/strike-details/{{ strike.id }}" *ngFor="let strike of workerStrikes">
           {{ strike.date.seconds*1000 | date }} | You have received a strike!
         </ion-item>
       </ion-list>

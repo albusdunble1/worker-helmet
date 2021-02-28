@@ -1,4 +1,7 @@
+import { AppealsService } from './appeals.service';
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-appeals',
@@ -6,10 +9,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appeals.page.scss'],
 })
 export class AppealsPage implements OnInit {
+  workerId= 'pwTl5CFXSiq3XxR2BetX';
+  loadedWorker;
+  loadedAppeals = [];
 
-  constructor() { }
+  appealSub: Subscription;
+
+
+  constructor(
+    private appealService: AppealsService,
+    private loadingCtrl: LoadingController,
+  ) { }
 
   ngOnInit() {
+    this.loadingCtrl.create({
+      message: 'Loading Appeals...'
+    }).then(loadingEl => {
+      loadingEl.present();
+      this.appealSub = this.appealService.getAppeals().subscribe((appeals) => {
+        this.loadedAppeals = appeals.filter(appeal => {
+          return appeal['strike'].worker.id === this.workerId;
+        });
+        loadingEl.dismiss();
+      });
+    });
+
+
   }
 
 }
