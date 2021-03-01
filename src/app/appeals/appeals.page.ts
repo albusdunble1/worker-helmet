@@ -30,6 +30,12 @@ export class AppealsPage implements OnInit {
         this.loadedAppeals = appeals.filter(appeal => {
           return appeal['strike'].worker.id === this.workerId;
         });
+
+        // sort array by latest date
+        this.loadedAppeals = this.loadedAppeals.sort(function(a,b){
+          return b.date - a.date;
+        });
+
         loadingEl.dismiss();
       });
     });
