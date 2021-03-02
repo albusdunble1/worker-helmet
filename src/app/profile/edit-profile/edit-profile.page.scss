@@ -1,0 +1,25 @@
+.top-profile{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.top-profile ion-avatar{
+  border: 1px solid black;
+  width: 90px;
+  height: 90px;
+}
+
+.profile-details ion-row{
+  padding: 1.2rem 0;
+}
+
+.profile-details ion-row ion-col:first-child{
+  font-weight: bold;
+}
+
+ion-input, ion-textarea {
+  border: 1px solid #0000004f;
+  border-radius: 5px;
+}

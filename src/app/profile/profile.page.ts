@@ -39,7 +39,9 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-
+    if(this.workerSub){
+      this.workerSub.unsubscribe();
+    }
   }
 
 }
