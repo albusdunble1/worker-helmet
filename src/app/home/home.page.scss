@@ -1,7 +1,6 @@
-.middle-stats ion-col{
-  padding: 0;
-}
-
+// .middle-stats ion-col{
+//   padding: 0;
+// }
 
 .streak{
   display: flex;
@@ -10,4 +9,24 @@
 .stat-number{
   font-weight: bold;
   font-size: 2.5em;
+}
+
+ion-img {
+  display: inline-block;
+  width: 85px;
+}
+
+.strikes-tracker ion-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.strikes-none{
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+h2{
+  margin: 0;
 }
