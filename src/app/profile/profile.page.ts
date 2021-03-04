@@ -1,7 +1,8 @@
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { WorkersService } from './workers.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,9 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   constructor(
     private workerService: WorkersService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private fireAuth: AngularFireAuth,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -33,9 +36,12 @@ export class ProfilePage implements OnInit, OnDestroy {
         loadingEl.dismiss();
       });
     })
+  }
 
-
-
+  onLogout(){
+    this.fireAuth.signOut().then(() => {
+      this.navCtrl.navigateBack('/login');
+    });;
   }
 
   ngOnDestroy(){
