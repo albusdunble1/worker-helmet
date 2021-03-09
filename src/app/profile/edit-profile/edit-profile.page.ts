@@ -3,6 +3,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { WorkersService } from './../workers.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,7 +21,8 @@ export class EditProfilePage implements OnInit, OnDestroy {
   constructor(
     private workerService: WorkersService,
     private loadingCtrl: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private fireAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -39,17 +41,25 @@ export class EditProfilePage implements OnInit, OnDestroy {
       })
     });
 
-    this.workerSub = this.workerService.getWorker(this.workerId).subscribe((worker) => {
-      this.loadedWorker = worker;
-      console.log(this.loadedWorker);
-      this.isLoading = false;
+    this.fireAuth.authState.subscribe(data => {
+      this.workerId = data.uid;
 
-      this.form.patchValue({
-        phone: this.loadedWorker.phone,
-        currentProject: this.loadedWorker.currentProject,
-        address: this.loadedWorker.address
+      this.workerSub = this.workerService.getWorker(this.workerId).subscribe((worker) => {
+        this.loadedWorker = worker;
+        console.log(this.loadedWorker);
+        this.isLoading = false;
+
+        this.form.patchValue({
+          phone: this.loadedWorker.phone,
+          currentProject: this.loadedWorker.currentProject,
+          address: this.loadedWorker.address
+        });
       });
     });
+
+
+
+
   }
 
   onEditProfile(){

@@ -5,30 +5,40 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-card *ngFor="let appeal of loadedAppeals">
-      <ion-card-content>
-        <ion-text color="dark">
-          <h2><b>Appeal ID: {{ appeal.id }}</b></h2>
-          <p>{{ appeal.date.seconds*1000 | date }}</p>
-          <p *ngIf="appeal.status === 'pending'"><span class="pending">Pending</span></p>
-          <p *ngIf="appeal.status === 'approved'"><span class="approved">Approved</span></p>
-          <p *ngIf="appeal.status === 'rejected'"><span class="rejected">Rejected</span></p>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-text color="dark" *ngIf="loadedAppeals.length === 0" class="ion-text-center">
+          <p>{{ message }}</p>
         </ion-text>
-        <!-- <ion-img [src]='appeal.detection.frameUrl'></ion-img> -->
+        <ion-list>
+          <ion-card *ngFor="let appeal of loadedAppeals">
+            <ion-card-content>
+              <ion-text color="dark">
+                <h2><b>Appeal ID: {{ appeal.id }}</b></h2>
+                <p>{{ appeal.date.seconds*1000 | date }}</p>
+                <p *ngIf="appeal.status === 'pending'"><span class="pending">Pending</span></p>
+                <p *ngIf="appeal.status === 'approved'"><span class="approved">Approved</span></p>
+                <p *ngIf="appeal.status === 'rejected'"><span class="rejected">Rejected</span></p>
+              </ion-text>
+              <!-- <ion-img [src]='appeal.detection.frameUrl'></ion-img> -->
 
-        <ion-text color="dark">
-          <h2><b>Strike ID: {{ appeal.strike.id }}</b></h2>
-        </ion-text>
+              <ion-text color="dark">
+                <h2><b>Strike ID: {{ appeal.strike.id }}</b></h2>
+              </ion-text>
 
-        <ion-label>
-          <h3><b>Reason</b></h3>
-          <p>{{ appeal.reason }}</p>
-        </ion-label>
-        <!-- <div class="ion-text-center" *ngIf="appeal.status === 'active'">
-          <ion-button color="danger" (click)="onResolve(appeal.id)">Resolve</ion-button>
-        </div> -->
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+              <ion-label>
+                <h3><b>Reason</b></h3>
+                <p>{{ appeal.reason }}</p>
+              </ion-label>
+              <!-- <div class="ion-text-center" *ngIf="appeal.status === 'active'">
+                <ion-button color="danger" (click)="onResolve(appeal.id)">Resolve</ion-button>
+              </div> -->
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

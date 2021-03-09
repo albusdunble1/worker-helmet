@@ -2,6 +2,7 @@ import { StrikesService } from './strikes.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoadingController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -11,15 +12,16 @@ import { LoadingController } from '@ionic/angular';
 })
 export class HomePage implements OnInit, OnDestroy {
   strikeSub: Subscription;
-  workerStrikes;
+  workerStrikes = [];
   workerId = 'pwTl5CFXSiq3XxR2BetX';
-  streakCount;
-  activeStrikesCount;
+  streakCount = 0;
+  activeStrikesCount = 0;
   isLoading = false;
 
   constructor(
     private strikeService: StrikesService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private fireAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -28,38 +30,49 @@ export class HomePage implements OnInit, OnDestroy {
     }).then(loadingEl => {
       this.isLoading = true;
       loadingEl.present();
-      this.strikeSub = this.strikeService.getStrikes().subscribe((strikes) => {
 
-        this.workerStrikes = strikes.filter((strike) => {
-          return strike['worker'].id === this.workerId;
-        })
+      this.fireAuth.authState.subscribe(data => {
+        this.workerId = data.uid;
 
-        console.log(this.workerStrikes);
+        this.strikeSub = this.strikeService.getStrikes().subscribe((strikes) => {
 
-        // sort array by latest date
-        this.workerStrikes = this.workerStrikes.sort(function(a,b){
-          return b.date - a.date;
+          this.workerStrikes = strikes.filter((strike) => {
+            return strike['worker'].id === this.workerId;
+          })
+
+          // check if the worker has at least one strike
+          if(this.workerStrikes.length > 0) {
+            console.log(this.workerStrikes);
+
+            // sort array by latest date
+            this.workerStrikes = this.workerStrikes.sort(function(a,b){
+              return b.date - a.date;
+            });
+
+            // calculate active strikes
+            this.activeStrikesCount = this.workerStrikes.filter(strike => {
+              return strike.status === 'active';
+            }).length;
+            console.log(this.activeStrikesCount);
+
+
+            // calculate streak
+            let lastStrike = this.workerStrikes[0].date.toDate();
+            let today = new Date();
+
+            console.log(lastStrike, today)
+
+            this.streakCount = Math.floor((today.getTime() - lastStrike.getTime()) / 1000 / 60 / 60 / 24);
+            console.log(this.streakCount);
+          }
+
+
+          loadingEl.dismiss();
+          this.isLoading = false;
         });
-
-        // calculate active strikes
-        this.activeStrikesCount = this.workerStrikes.filter(strike => {
-          return strike.status === 'active';
-        }).length;
-        console.log(this.activeStrikesCount);
-
-
-        // calculate streak
-        let lastStrike = this.workerStrikes[0].date.toDate();
-        let today = new Date();
-
-        console.log(lastStrike, today)
-
-        this.streakCount = Math.floor((today.getTime() - lastStrike.getTime()) / 1000 / 60 / 60 / 24);
-        console.log(this.streakCount);
-
-        loadingEl.dismiss();
-        this.isLoading = false;
       });
+
+
     });
 
 

@@ -10,7 +10,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit, OnDestroy {
-  workerId = 'pwTl5CFXSiq3XxR2BetX';
+  workerId = '';
   loadedWorker;
   isLoading = false;
 
@@ -27,14 +27,21 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.loadingCtrl.create({
       message: 'Loading Profile...'
     }).then(loadingEl => {
+      console.log(this.fireAuth.currentUser);
       this.isLoading = true;
       loadingEl.present();
-      this.workerSub = this.workerService.getWorker(this.workerId).subscribe((worker) => {
-        this.loadedWorker = worker;
-        console.log(this.loadedWorker);
-        this.isLoading = false;
-        loadingEl.dismiss();
+      this.fireAuth.authState.subscribe(data => {
+        console.log(data.uid);
+        this.workerId = data.uid;
+
+        this.workerSub = this.workerService.getWorker(this.workerId).subscribe((worker) => {
+          this.loadedWorker = worker;
+          console.log(this.loadedWorker);
+          this.isLoading = false;
+          loadingEl.dismiss();
+        });
       });
+
     })
   }
 
