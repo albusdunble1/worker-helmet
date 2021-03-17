@@ -54,10 +54,15 @@ export class AppealFormPage implements OnInit {
       }
       this.appealService.createAppeal(appealInfo).then(data => {
         console.log(data);
+
+        loadingEl.dismiss();
+        form.reset();
+        this.router.navigateByUrl('/tabs/home').then(() => {
+          this.router.navigateByUrl('/tabs/appeals');
+        });
       })
 
-      loadingEl.dismiss();
-      this.router.navigateByUrl('/tabs/appeals');
+
     })
   }
 
