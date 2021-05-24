@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, ToastController } from '@ionic/angular';
 import { WorkersService } from './../workers.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -22,7 +22,8 @@ export class EditProfilePage implements OnInit, OnDestroy {
     private workerService: WorkersService,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private fireAuth: AngularFireAuth
+    private fireAuth: AngularFireAuth,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -75,12 +76,19 @@ export class EditProfilePage implements OnInit, OnDestroy {
         currentProject: this.form.value.currentProject,
         address: this.form.value.address
       }
+      this.toastCtrl.create({
+        message:'Edit Successful',
+        duration: 2000
+      }).then(toastEl => {
+        this.workerService.updateWorkerProfile(this.workerId, profileDetails).then(() => {
+          console.log('yay all updated!');
+          loadingEl.dismiss();
+          this.navCtrl.navigateBack('/tabs/profile');
+          toastEl.present();
+        });
 
-      this.workerService.updateWorkerProfile(this.workerId, profileDetails).then(() => {
-        console.log('yay all updated!');
-        loadingEl.dismiss();
-        this.navCtrl.navigateBack('/tabs/profile');
-      });
+      })
+
     })
 
   }
