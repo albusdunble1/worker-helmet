@@ -29,6 +29,7 @@ export class LoginPage implements OnInit {
       res.then(data => {
         loadingEl.dismiss();
         if(data.user.uid !== 'VxpBkac1aXhrHVzQcQFJg2rEIwi1'){
+          form.reset();
           this.navCtrl.navigateForward('/tabs/home');
         }else{
           this.alertCtrl.create({
@@ -36,6 +37,7 @@ export class LoginPage implements OnInit {
             message: 'Only worker accounts are allowed to access',
             buttons: ['Ok']
           }).then(alertEl => {
+            form.reset();
             alertEl.present();
           });
         }
@@ -46,6 +48,7 @@ export class LoginPage implements OnInit {
           message: err,
           buttons: ['Ok']
         }).then(alertEl => {
+          form.reset();
           alertEl.present();
         });
       })
