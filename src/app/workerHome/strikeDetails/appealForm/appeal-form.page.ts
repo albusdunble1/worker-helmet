@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { AppealsService } from 'src/app/appeals/appeals.service';
+import { AppealsService } from 'src/app/myAppeals/appeals.service';
 import { StrikesService } from '../../strikes.service';
 
 @Component({

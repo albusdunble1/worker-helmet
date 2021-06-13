@@ -9,15 +9,15 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        loadChildren: () => import('../workerHome/home.module').then(m => m.HomePageModule)
       },
       {
         path: 'appeals',
-        loadChildren: () => import('../appeals/appeals.module').then(m => m.AppealsPageModule)
+        loadChildren: () => import('../myAppeals/appeals.module').then(m => m.AppealsPageModule)
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
+        loadChildren: () => import('../workerProfile/profile.module').then(m => m.ProfilePageModule)
       },
       {
         path: '',

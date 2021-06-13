@@ -10,11 +10,11 @@ const routes: Routes = [
   },
   {
     path: 'strike-details/:strikeId',
-    loadChildren: () => import('./strike-details/strike-details.module').then( m => m.StrikeDetailsPageModule)
+    loadChildren: () => import('./strikeDetails/strike-details.module').then( m => m.StrikeDetailsPageModule)
   },
   {
     path: 'appeal-form/:strikeId',
-    loadChildren: () => import('./strike-details/appeal-form/appeal-form.module').then( m => m.AppealFormPageModule)
+    loadChildren: () => import('./strikeDetails/appealForm/appeal-form.module').then( m => m.AppealFormPageModule)
   }
 ];
 
