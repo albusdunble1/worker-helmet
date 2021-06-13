@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  onLogin(form: NgForm){
+  loginWorker(form: NgForm){
     this.loadingCtrl.create({
       message: 'Logging In...'
     }).then(loadingEl => {

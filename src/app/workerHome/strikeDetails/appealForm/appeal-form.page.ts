@@ -35,7 +35,7 @@ export class AppealFormPage implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm){
+  addAppeal(form: NgForm){
     if(!form.valid){
       return;
     }

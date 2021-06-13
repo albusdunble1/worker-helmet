@@ -63,7 +63,7 @@ export class EditProfilePage implements OnInit, OnDestroy {
 
   }
 
-  onEditProfile(){
+  editProfile(){
     this.loadingCtrl.create({
       message: 'Editing Profile...'
     }).then(loadingEl => {

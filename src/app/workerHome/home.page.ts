@@ -25,6 +25,10 @@ export class HomePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.getWorkerStrikesList();
+  }
+
+  getWorkerStrikesList(){
     this.loadingCtrl.create({
       message: 'Loading...'
     }).then(loadingEl => {
@@ -74,10 +78,6 @@ export class HomePage implements OnInit, OnDestroy {
 
 
     });
-
-
-
-
   }
 
   ngOnDestroy(){

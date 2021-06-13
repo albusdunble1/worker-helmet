@@ -24,6 +24,10 @@ export class ProfilePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.getProfile();
+  }
+
+  getProfile(){
     this.loadingCtrl.create({
       message: 'Loading Profile...'
     }).then(loadingEl => {

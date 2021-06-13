@@ -25,6 +25,10 @@ export class AppealsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getWorkerAppealList();
+  }
+
+  getWorkerAppealList(){
     this.loadingCtrl.create({
       message: 'Loading Appeals...'
     }).then(loadingEl => {
@@ -54,8 +58,8 @@ export class AppealsPage implements OnInit {
 
 
     });
-
-
   }
+
+
 
 }
